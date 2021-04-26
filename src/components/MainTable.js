@@ -2,11 +2,15 @@ import React from 'react'
 import Table from 'react-bootstrap/Table'
 
 const MainTable = (props) => {
+
+    
     
     const imgStyle = {
         height:'80px',
         width:'80px'
     }
+
+    
     
     return(
         <Table striped bordered hover size="sm">
