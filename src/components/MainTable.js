@@ -1,3 +1,4 @@
+import { Button } from 'react-bootstrap'
 import React from 'react'
 import Table from 'react-bootstrap/Table'
 
@@ -12,7 +13,10 @@ const MainTable = (props) => {
 
     
     
+    
     return(
+        <div>
+            <Button onClick={props.goBack} className="my-4" >Go Back</Button>
         <Table striped bordered hover size="sm">
             <thead>
                 <tr>
@@ -24,7 +28,7 @@ const MainTable = (props) => {
             <tbody>
                 {
                     props.posts.map(post=>
-                        <tr>
+                        <tr key={post.id}>
                         <td><img src={post.avatar_url} alt="Avatar logo" style={imgStyle}/> </td>
                         <td>{post.login}</td>
                         <td>{post.type}</td>
@@ -34,6 +38,7 @@ const MainTable = (props) => {
                     
             </tbody>
         </Table>
+        </div>
     )
 }
 
