@@ -19,7 +19,7 @@ const MainTable = ({posts,goBack,avatarSort,typeSort,loginSort,error,avatarSortD
             <Button variant="outline-danger" onClick={goBack} className="my-4" >Go Back</Button>
             {
             
-                <Table striped bordered hover size="sm" >
+                <Table striped bordered hover size="sm" className="w-100" >
                     <thead>
                         <tr>
                         <th>{ avatarAsc ? <Button variant="dark" onClick={avatarSortD} >Avatar  ↓ </Button>  : 

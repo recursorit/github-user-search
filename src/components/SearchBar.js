@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
 import {Button} from 'react-bootstrap'
 import MainTable from './MainTable'
@@ -115,17 +115,13 @@ const SearchBar = () => {
 
     //console.log(posts)
 
-    const inputRef= useRef(null)
-
-    useEffect(()=>{
-        inputRef.current.focus()
-    },[])
+    
 
     return(
         <div>
             {showSearch ? <div className=" py-4 searchContainer ">
             <h2 className="display-3">Search for user here</h2>    
-            <input ref={inputRef} type="text" value={search} onChange={e=>setSearch(e.target.value)} className="mt-3 p-2 rounded-10 " placeholder="Type here"/>
+            <input autoFocus  type="text" value={search} onChange={e=>setSearch(e.target.value)} className="mt-3 p-2 rounded " placeholder="Type here"/>
             <div className="my-3"><Button onClick={handleClick} variant="outline-dark ml-2" disabled={!search}  >Search</Button></div>
             </div> : <div></div> }
             
@@ -156,7 +152,9 @@ const SearchBar = () => {
                     </Form.Control>
                 </Form.Group>
                 </Form>
-                <Pagination postsPerPage={postPerPage} totalPosts={posts.length} paginate={paginate} />
+                <div className="w-100">
+                <Pagination postsPerPage={postPerPage} totalPosts={posts.length} paginate={paginate}  />
+                </div>
             </div> : <div></div> }
             
         </div>
