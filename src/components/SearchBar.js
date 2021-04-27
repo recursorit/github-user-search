@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import {Button} from 'react-bootstrap'
 import MainTable from './MainTable'
@@ -16,6 +16,12 @@ const SearchBar = () => {
 
     const [currentPage,setCurrentPage] = useState(1)
     const [postPerPage,setPostPerPage] = useState(9)
+
+    // const [error,setError] = useState(false)
+
+    const [avatarAsc,setAvatarAsc] = useState(false)
+    const [loginAsc,setLoginAsc] = useState(true)
+    const [typeAsc,setTypeAsc] = useState(false)
 
     
 
@@ -40,6 +46,58 @@ const SearchBar = () => {
         setSearch('')
         setPosts([])
         setPostPerPage(9)
+        setAvatarAsc(false)
+        setLoginAsc(true)
+        setTypeAsc(false)
+        // setError(false)
+    }
+
+    const avatarSort = () => {
+        const asort = lodash.orderBy(posts,['avatar_url'], ['asc', 'desc'])
+        setPosts(asort)
+        setAvatarAsc(true)
+        setLoginAsc(false)
+        setTypeAsc(false)
+    }
+
+    const typeSort = () => {
+        const tsort = lodash.orderBy(posts,['type'], ['asc', 'desc'] )
+        setPosts(tsort)
+        setAvatarAsc(false)
+        setLoginAsc(false)
+        setTypeAsc(true)
+    }
+
+    const loginSortD = () => {
+        const lsortD = lodash.orderBy(posts,['login'], ['asc', 'desc'] ).reverse()
+        setPosts(lsortD)
+        setAvatarAsc(false)
+        setLoginAsc(false)
+        setTypeAsc(false)
+    }
+
+    const avatarSortD = () => {
+        const asortD = lodash.orderBy(posts,['avatar_url'], ['asc', 'desc']).reverse()
+        setPosts(asortD)
+        setAvatarAsc(false)
+        setLoginAsc(false)
+        setTypeAsc(false)
+    }
+
+    const typeSortD = () => {
+        const tsortD = lodash.orderBy(posts,['type'], ['asc', 'desc'] ).reverse()
+        setPosts(tsortD)
+        setAvatarAsc(false)
+        setLoginAsc(false)
+        setTypeAsc(false)
+    }
+
+    const loginSort = () => {
+        const lsort = lodash.orderBy(posts,['login'], ['asc', 'desc'] )
+        setPosts(lsort)
+        setAvatarAsc(false)
+        setLoginAsc(true)
+        setTypeAsc(false)
     }
 
     const indexOfLastPost = currentPage*postPerPage;
@@ -48,7 +106,11 @@ const SearchBar = () => {
 
     const paginate = pageNumber => setCurrentPage(pageNumber);
 
-    
+    // useEffect(()=>{
+    //     if(posts.length === 0){
+    //        return setError(true)
+    //     }
+    // },[posts])
 
     //console.log(posts)
 
@@ -61,7 +123,19 @@ const SearchBar = () => {
             
 
             {showTable ?  <div className="px-5">
-                <MainTable posts={currentPosts} goBack={goBack} />
+                <MainTable posts={currentPosts}
+                 goBack={goBack}
+                 avatarSort={avatarSort}
+                 typeSort={typeSort}
+                 loginSortD={loginSortD}
+                 avatarSortD={avatarSortD}
+                 typeSortD={typeSortD}
+                 loginSort={loginSort}
+                 avatarAsc={avatarAsc}
+                 loginAsc={loginAsc}
+                 typeAsc={typeAsc}
+                //  error={error}
+                 />
                 <Form>
                 <Form.Group controlId="exampleForm.SelectCustom" onChange={(e)=>setPostPerPage(e.target.value)}>
                     <Form.Label>Select no. of posts</Form.Label>

@@ -2,9 +2,9 @@ import { Button } from 'react-bootstrap'
 import React from 'react'
 import Table from 'react-bootstrap/Table'
 
-const MainTable = (props) => {
 
-    
+const MainTable = ({posts,goBack,avatarSort,typeSort,loginSort,error,avatarSortD,typeSortD,loginSortD,avatarAsc,loginAsc,typeAsc}) => {
+
     
     const imgStyle = {
         height:'80px',
@@ -16,28 +16,41 @@ const MainTable = (props) => {
     
     return(
         <div>
-            <Button onClick={props.goBack} className="my-4" >Go Back</Button>
-        <Table striped bordered hover size="sm">
-            <thead>
-                <tr>
-                <th>Avatar</th>
-                <th>Login Id</th>
-                <th>Type</th>
-                </tr>
-            </thead>
-            <tbody>
-                {
-                    props.posts.map(post=>
-                        <tr key={post.id}>
-                        <td><img src={post.avatar_url} alt="Avatar logo" style={imgStyle}/> </td>
-                        <td>{post.login}</td>
-                        <td>{post.type}</td>
+            <Button onClick={goBack} className="my-4" >Go Back</Button>
+            {
+            
+                <Table striped bordered hover size="sm">
+                    <thead>
+                        <tr>
+                        <th>{ avatarAsc ? <Button variant="dark" onClick={avatarSortD} >Avatar</Button>  : 
+                                <Button variant="dark" onClick={avatarSort} >Avatar</Button>
+                            } 
+                        </th>
+                        <th>{ loginAsc ? <Button variant="dark"  onClick={loginSortD} >Login Id</Button>  : 
+                                <Button variant="dark" onClick={loginSort} >Login Id</Button>
+                            }
+                        </th>
+                        <th>{ typeAsc ? <Button variant="dark"  onClick={typeSortD} >Type</Button>  : 
+                                <Button variant="dark" onClick={typeSort} >Type</Button>
+                            }
+                        </th>
                         </tr>
-                        )
-                }
-                    
-            </tbody>
-        </Table>
+                    </thead>
+                    <tbody>
+                        {
+                            posts.map(post=>
+                                <tr key={post.id}>
+                                <td><img src={post.avatar_url} alt="Avatar logo" style={imgStyle}/> </td>
+                                <td>{post.login}</td>
+                                <td>{post.type}</td>
+                                </tr>
+                                )
+                        }
+                            
+                    </tbody>
+                </Table>
+
+            }
         </div>
     )
 }
