@@ -126,7 +126,7 @@ const SearchBar = () => {
             </div> : <div></div> }
             
 
-            {showTable ?  <div className="px-5 tableContainer"  >
+            {showTable ?  <div className="px-5 py-2 tableContainer"  >
                 <MainTable posts={currentPosts}
                  goBack={goBack}
                  avatarSort={avatarSort}
