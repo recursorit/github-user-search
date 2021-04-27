@@ -15,7 +15,7 @@ const SearchBar = () => {
     const [showTable,setShowTable]=useState(false)
 
     const [currentPage,setCurrentPage] = useState(1)
-    const [postPerPage,setPostPerPage] = useState(9)
+    const [postPerPage,setPostPerPage] = useState(12)
 
     // const [error,setError] = useState(false)
 
@@ -45,7 +45,7 @@ const SearchBar = () => {
         setShowTable(false);
         setSearch('')
         setPosts([])
-        setPostPerPage(9)
+        setPostPerPage(12)
         setAvatarAsc(false)
         setLoginAsc(true)
         setTypeAsc(false)
@@ -144,8 +144,7 @@ const SearchBar = () => {
                 <Form.Group controlId="exampleForm.SelectCustom" onChange={(e)=>setPostPerPage(e.target.value)}>
                     <Form.Label>Select no. of posts</Form.Label>
                     <Form.Control as="select" custom>
-                    <option>9</option>
-                    <option>5</option>
+                    <option>12</option>
                     <option>15</option>
                     <option>25</option>
                     <option>50</option>
