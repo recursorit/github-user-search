@@ -45,3 +45,7 @@
   background: linear-gradient(120deg,#e7e051,#68aaec);
   height: 100vh;
  }
+
+.PaginationContainer{
+  width: 100%;
+} 

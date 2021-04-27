@@ -152,7 +152,7 @@ const SearchBar = () => {
                     </Form.Control>
                 </Form.Group>
                 </Form>
-                <div className="w-100">
+                <div className="PaginationContainer">
                 <Pagination postsPerPage={postPerPage} totalPosts={posts.length} paginate={paginate}  />
                 </div>
             </div> : <div></div> }
