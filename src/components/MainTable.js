@@ -16,21 +16,21 @@ const MainTable = ({posts,goBack,avatarSort,typeSort,loginSort,error,avatarSortD
     
     return(
         <div>
-            <Button onClick={goBack} className="my-4" >Go Back</Button>
+            <Button variant="outline-danger" onClick={goBack} className="my-4" >Go Back</Button>
             {
             
-                <Table striped bordered hover size="sm">
+                <Table striped bordered hover size="sm" >
                     <thead>
                         <tr>
-                        <th>{ avatarAsc ? <Button variant="dark" onClick={avatarSortD} >Avatar</Button>  : 
-                                <Button variant="dark" onClick={avatarSort} >Avatar</Button>
+                        <th>{ avatarAsc ? <Button variant="dark" onClick={avatarSortD} >Avatar  ↓ </Button>  : 
+                                <Button variant="dark" onClick={avatarSort} >Avatar </Button>
                             } 
                         </th>
-                        <th>{ loginAsc ? <Button variant="dark"  onClick={loginSortD} >Login Id</Button>  : 
-                                <Button variant="dark" onClick={loginSort} >Login Id</Button>
+                        <th>{ loginAsc ? <Button variant="dark"  onClick={loginSortD} >Login Id  ↓ </Button>  : 
+                                <Button variant="dark" onClick={loginSort} >Login Id  </Button>
                             }
                         </th>
-                        <th>{ typeAsc ? <Button variant="dark"  onClick={typeSortD} >Type</Button>  : 
+                        <th>{ typeAsc ? <Button variant="dark"  onClick={typeSortD} >Type  ↓ </Button>  : 
                                 <Button variant="dark" onClick={typeSort} >Type</Button>
                             }
                         </th>

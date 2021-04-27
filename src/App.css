@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+.tableContainer {
+ background: linear-gradient(120deg,#e6df6a,#97bfe7);
+}
+
+.searchContainer {
+  background: linear-gradient(120deg,#e7e051,#68aaec);
+  height: 100vh;
+ }

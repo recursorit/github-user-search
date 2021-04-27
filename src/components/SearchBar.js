@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import axios from 'axios'
 import {Button} from 'react-bootstrap'
 import MainTable from './MainTable'
@@ -49,6 +49,7 @@ const SearchBar = () => {
         setAvatarAsc(false)
         setLoginAsc(true)
         setTypeAsc(false)
+        setCurrentPage(1)
         // setError(false)
     }
 
@@ -114,19 +115,26 @@ const SearchBar = () => {
 
     //console.log(posts)
 
+    const inputRef= useRef(null)
+
+    useEffect(()=>{
+        inputRef.current.focus()
+    },[])
+
     return(
         <div>
-            {showSearch ? <div className="bg-warning py-4">
-            <input type="text" value={search} onChange={e=>setSearch(e.target.value)} className=" size-lg " />
-            <Button onClick={handleClick} variant="outline-dark ml-2" disabled={!search}  >Search</Button>
+            {showSearch ? <div className=" py-4 searchContainer ">
+            <h2 className="display-3">Search for user here</h2>    
+            <input ref={inputRef} type="text" value={search} onChange={e=>setSearch(e.target.value)} className="mt-3 p-2 rounded-10 " placeholder="Type here"/>
+            <div className="my-3"><Button onClick={handleClick} variant="outline-dark ml-2" disabled={!search}  >Search</Button></div>
             </div> : <div></div> }
             
 
-            {showTable ?  <div className="px-5">
+            {showTable ?  <div className="px-5 tableContainer"  >
                 <MainTable posts={currentPosts}
                  goBack={goBack}
                  avatarSort={avatarSort}
-                 typeSort={typeSort}
+                 typeSort={typeSort} 
                  loginSortD={loginSortD}
                  avatarSortD={avatarSortD}
                  typeSortD={typeSortD}
