@@ -3,7 +3,7 @@ import React from 'react'
 import Table from 'react-bootstrap/Table'
 
 
-const MainTable = ({posts,goBack,avatarSort,typeSort,loginSort,error,avatarSortD,typeSortD,loginSortD,avatarAsc,loginAsc,typeAsc}) => {
+const MainTable = ({posts,goBack,avatarSort,typeSort,loginSort,avatarSortD,typeSortD,loginSortD,avatarAsc,loginAsc,typeAsc,error}) => {
 
     
     const imgStyle = {
@@ -11,14 +11,24 @@ const MainTable = ({posts,goBack,avatarSort,typeSort,loginSort,error,avatarSortD
         width:'80px'
     }
 
+    // const [error,setError] = useState(false)
     
-    
-    
+    // const findError =()=>{
+    //     if(posts.length < 1){
+    //         setError(true)
+    //     } else {
+    //          setError(false)
+    //     }
+    // }
+    // console.log(posts.length)
+    // findError()
+
+
     return(
         <div>
             <Button variant="outline-danger" onClick={goBack} className="my-4" >Go Back</Button>
             {
-            
+                //error ? <h2>no result found </h2>:
                 <Table striped bordered hover size="sm" className="datatable" >
                     <thead>
                         <tr>

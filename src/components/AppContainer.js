@@ -24,9 +24,7 @@ const AppContainer = () => {
     const [typeAsc,setTypeAsc] = useState(false)
 
 
-    const pageNumberLimit = 3
-    const [maxPageNumberLimit,setmaxPageNumberLimit] = useState(3)
-    const [minPageNumberLimit,setminPageNumberLimit] = useState(0)
+    
 
     
 
@@ -43,6 +41,9 @@ const AppContainer = () => {
 
         setShowSearch(false);
         setShowTable(true)
+        // if(posts.length < 1){
+        //     setError(true)
+        // }
     }
 
     const goBack = () => {
@@ -55,8 +56,7 @@ const AppContainer = () => {
         setLoginAsc(true)
         setTypeAsc(false)
         setCurrentPage(1)
-        setmaxPageNumberLimit(3)
-        setminPageNumberLimit(0)
+        
         // setError(false)
     }
 
@@ -116,53 +116,28 @@ const AppContainer = () => {
 
     const nextBtn = () => {
         setCurrentPage(currentPage+1)
-        if(currentPage+1 > maxPageNumberLimit){
-            setmaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit)
-            setminPageNumberLimit(minPageNumberLimit + pageNumberLimit)
-        }
-        if(currentPage+1 > Math.ceil(posts.length/postPerPage)){
-            setCurrentPage(currentPage)
-        }
-
     }
 
     const prevBtn = () => {
-        setCurrentPage(currentPage-1)
-        if((currentPage - 1) % minPageNumberLimit === 0){
-            setmaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit)
-            setminPageNumberLimit(minPageNumberLimit - pageNumberLimit)
-        }
-        if(currentPage-1 < 1){
-            setCurrentPage(currentPage)
-        }
+        setCurrentPage(currentPage-1)    
     }
 
-    const dotInc = () => {
-        setmaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit)
-        setminPageNumberLimit(minPageNumberLimit + pageNumberLimit)
-    }
+   
 
     let pageIncBtn = null;
-    if( maxPageNumberLimit  < Math.ceil(posts.length/postPerPage)) {
-        pageIncBtn = <li><Button variant="light" className="text-primary" onClick={dotInc} >...</Button></li>
+    if( currentPage + 2  < Math.ceil(posts.length/postPerPage)) {
+        pageIncBtn = <li><Button variant="light" className="text-primary" disabled >...</Button></li>
     }
 
-    const dotDec = () => {
-        setmaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit)
-        setminPageNumberLimit(minPageNumberLimit - pageNumberLimit)
-    }
+    
 
     let pageDecBtn = null;
-    if( minPageNumberLimit  > 1) {
-        pageDecBtn = <li><Button variant="light" className="text-primary" onClick={dotDec} >...</Button></li>
+    if( currentPage - 2  > 1) {
+        pageDecBtn = <li><Button variant="light" className="text-primary" disabled >...</Button></li>
     }
     
 
-    // useEffect(()=>{
-    //     if(posts.length === 0){
-    //        return setError(true)
-    //     }
-    // },[posts])
+    
 
     //console.log(posts)
 
@@ -196,7 +171,7 @@ const AppContainer = () => {
                 <Col> 
                 <Form className="xs-12">
                 <Form.Group controlId="exampleForm.SelectCustom" onChange={(e)=>setPostPerPage(e.target.value)}>
-                    <Form.Label>Select no. of posts</Form.Label>
+                    <Form.Label>Select no. of Rows</Form.Label>
                     <Form.Control as="select" custom>
                     <option>9</option>    
                     <option>12</option>
@@ -210,19 +185,26 @@ const AppContainer = () => {
                 <Col >
                     <Row className="px-3" xs={1}>
                         <ul className="pagination ">
-                        <li><Button variant="light" className="text-primary" onClick={prevBtn} disabled={currentPage === 1 ? true : false} >prev</Button></li> 
+                        <li><Button variant="light"
+                         className="text-primary"
+                         onClick={prevBtn}
+                         disabled={currentPage === 1 ? true : false} >prev</Button></li> 
+
                         {pageDecBtn}   
+
                         <Pagination
                         postsPerPage={postPerPage}
                         totalPosts={posts.length} 
-                        paginate={paginate} 
-                        pageNumberLimit={pageNumberLimit}
-                        maxPageNumberLimit={maxPageNumberLimit}
-                        minPageNumberLimit={minPageNumberLimit}
+                        paginate={paginate}                                               
                         currentPage={currentPage}
                         />
+
                         {pageIncBtn} 
-                        <li><Button variant="light" className="text-primary" onClick={nextBtn} disabled={currentPage === Math.ceil(posts.length/postPerPage) ? true : false} >next</Button></li> 
+
+                        <li><Button variant="light"
+                         className="text-primary" 
+                         onClick={nextBtn} 
+                         disabled={currentPage === Math.ceil(posts.length/postPerPage) ? true : false} >next</Button></li> 
                         </ul>
                     </Row> 
                 </Col>
