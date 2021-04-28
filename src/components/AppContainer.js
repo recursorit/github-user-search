@@ -177,7 +177,7 @@ const AppContainer = () => {
             </div> : <div></div> }
             
 
-            {showTable ?  <Row className="px-5 py-2 tableContainer" xs={1} >
+            {showTable ?  <Row className="px-4 py-2 tableContainer" xs={1} >
                 <Col >
                 <MainTable posts={currentPosts}
                  goBack={goBack}

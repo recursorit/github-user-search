@@ -41,6 +41,7 @@
  background: linear-gradient(120deg,#e6df6a,#97bfe7);
  border: 0;
  width: 100%;
+ margin: 0;
 }
 
 .searchContainer {
