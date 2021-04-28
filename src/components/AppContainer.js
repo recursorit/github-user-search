@@ -178,7 +178,7 @@ const AppContainer = () => {
             
 
             {showTable ?  <Row className="px-5 py-2 tableContainer" xs={1} >
-                <Col>
+                <Col >
                 <MainTable posts={currentPosts}
                  goBack={goBack}
                  avatarSort={avatarSort}
@@ -210,7 +210,7 @@ const AppContainer = () => {
                 <Col >
                     <Row className="px-3" xs={1}>
                         <ul className="pagination ">
-                        <li><Button variant="light" className="text-primary" onClick={prevBtn} disabled={currentPage === 1 ? true : false} >Prev</Button></li> 
+                        <li><Button variant="light" className="text-primary" onClick={prevBtn} disabled={currentPage === 1 ? true : false} >prev</Button></li> 
                         {pageDecBtn}   
                         <Pagination
                         postsPerPage={postPerPage}
