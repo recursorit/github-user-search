@@ -1,7 +1,7 @@
 import React from 'react'
 import {Button} from 'react-bootstrap'
 
-const Pagination = ({postsPerPage,totalPosts,paginate,minPageNumberLimit,maxPageNumberLimit}) => {
+const Pagination = ({postsPerPage,totalPosts,paginate,minPageNumberLimit,maxPageNumberLimit,currentPage}) => {
     const pageNumbers = []
 
     for(let i=1; i<= Math.ceil(totalPosts/postsPerPage);i++){
@@ -16,7 +16,7 @@ const Pagination = ({postsPerPage,totalPosts,paginate,minPageNumberLimit,maxPage
                     if (number < maxPageNumberLimit + 1 && number > minPageNumberLimit){
                         return (
                             <li key={number} className="page-item">
-                                <Button onClick={()=>paginate(number)}  className="page-link">
+                                <Button onClick={()=>paginate(number)}  className={currentPage === number ? "active" : null}>
                                     {number}
                                 </Button>
                             </li>

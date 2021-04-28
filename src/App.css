@@ -53,3 +53,8 @@
 li {
   list-style-type: none;
 }
+
+.active{
+  background-color: rgb(57, 121, 240);
+  color: white;
+}

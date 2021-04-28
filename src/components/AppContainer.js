@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-import {Button,Row,Col} from 'react-bootstrap'
+import {Button,Row,} from 'react-bootstrap'
 import MainTable from './MainTable'
 import Pagination from './Pagination'
-import lodash, { constant } from 'lodash'
+import lodash from 'lodash'
 import Form from 'react-bootstrap/Form'
 
 const AppContainer = () => {
@@ -128,7 +128,7 @@ const AppContainer = () => {
 
     const prevBtn = () => {
         setCurrentPage(currentPage-1)
-        if((currentPage - 1) % minPageNumberLimit == 0){
+        if((currentPage - 1) % minPageNumberLimit === 0){
             setmaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit)
             setminPageNumberLimit(minPageNumberLimit - pageNumberLimit)
         }
@@ -205,7 +205,7 @@ const AppContainer = () => {
                 </Form>
                 <Row>
                     
-                        <li><Button variant="light" className="text-primary" onClick={prevBtn} disabled={currentPage == 1 ? true : false} >Prev</Button></li> 
+                        <li><Button variant="light" className="text-primary" onClick={prevBtn} disabled={currentPage === 1 ? true : false} >Prev</Button></li> 
                         {pageDecBtn}   
                         <Pagination
                         postsPerPage={postPerPage}
@@ -214,9 +214,10 @@ const AppContainer = () => {
                         pageNumberLimit={pageNumberLimit}
                         maxPageNumberLimit={maxPageNumberLimit}
                         minPageNumberLimit={minPageNumberLimit}
+                        currentPage={currentPage}
                         />
                         {pageIncBtn} 
-                        <li><Button variant="light" className="text-primary" onClick={nextBtn} disabled={currentPage == Math.ceil(posts.length/postPerPage) ? true : false} >next</Button></li> 
+                        <li><Button variant="light" className="text-primary" onClick={nextBtn} disabled={currentPage === Math.ceil(posts.length/postPerPage) ? true : false} >next</Button></li> 
                      
                 </Row>
             </div> : <div></div> }
