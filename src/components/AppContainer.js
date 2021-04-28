@@ -6,7 +6,7 @@ import Pagination from './Pagination'
 import lodash, { constant } from 'lodash'
 import Form from 'react-bootstrap/Form'
 
-const SearchBar = () => {
+const AppContainer = () => {
     
     const [posts,setPosts] = useState([])
     const [search,setSearch] = useState('')
@@ -24,8 +24,8 @@ const SearchBar = () => {
     const [typeAsc,setTypeAsc] = useState(false)
 
 
-    const pageNumberLimit = 5
-    const [maxPageNumberLimit,setmaxPageNumberLimit] = useState(5)
+    const pageNumberLimit = 3
+    const [maxPageNumberLimit,setmaxPageNumberLimit] = useState(3)
     const [minPageNumberLimit,setminPageNumberLimit] = useState(0)
 
     
@@ -55,6 +55,8 @@ const SearchBar = () => {
         setLoginAsc(true)
         setTypeAsc(false)
         setCurrentPage(1)
+        setmaxPageNumberLimit(3)
+        setminPageNumberLimit(0)
         // setError(false)
     }
 
@@ -126,7 +128,7 @@ const SearchBar = () => {
 
     const prevBtn = () => {
         setCurrentPage(currentPage-1)
-        if(currentPage-2 < minPageNumberLimit){
+        if((currentPage - 1) % minPageNumberLimit == 0){
             setmaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit)
             setminPageNumberLimit(minPageNumberLimit - pageNumberLimit)
         }
@@ -134,6 +136,7 @@ const SearchBar = () => {
             setCurrentPage(currentPage)
         }
     }
+
     const dotInc = () => {
         setmaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit)
         setminPageNumberLimit(minPageNumberLimit + pageNumberLimit)
@@ -201,18 +204,20 @@ const SearchBar = () => {
                 </Form.Group>
                 </Form>
                 <Row>
-                <li><Button variant="light" className="text-primary" onClick={prevBtn} >Prev</Button></li> 
-                {pageDecBtn}   
-                <Pagination
-                 postsPerPage={postPerPage}
-                 totalPosts={posts.length} 
-                 paginate={paginate} 
-                 pageNumberLimit={pageNumberLimit}
-                 maxPageNumberLimit={maxPageNumberLimit}
-                 minPageNumberLimit={minPageNumberLimit}
-                 />
-                {pageIncBtn} 
-                <li><Button variant="light" className="text-primary" onClick={nextBtn} >next</Button></li> 
+                    
+                        <li><Button variant="light" className="text-primary" onClick={prevBtn} disabled={currentPage == 1 ? true : false} >Prev</Button></li> 
+                        {pageDecBtn}   
+                        <Pagination
+                        postsPerPage={postPerPage}
+                        totalPosts={posts.length} 
+                        paginate={paginate} 
+                        pageNumberLimit={pageNumberLimit}
+                        maxPageNumberLimit={maxPageNumberLimit}
+                        minPageNumberLimit={minPageNumberLimit}
+                        />
+                        {pageIncBtn} 
+                        <li><Button variant="light" className="text-primary" onClick={nextBtn} disabled={currentPage == Math.ceil(posts.length/postPerPage) ? true : false} >next</Button></li> 
+                     
                 </Row>
             </div> : <div></div> }
             
@@ -220,4 +225,4 @@ const SearchBar = () => {
     )
 }
 
-export default SearchBar
+export default AppContainer
