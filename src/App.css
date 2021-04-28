@@ -39,6 +39,8 @@
 
 .tableContainer {
  background: linear-gradient(120deg,#e6df6a,#97bfe7);
+ border: 0;
+ width: 100%;
 }
 
 .searchContainer {
@@ -46,11 +48,13 @@
   height: 100vh;
  }
 
-.PaginationContainer{
-  width: 100%;
-} 
+ 
 
 li {
   list-style-type: none;
+  display: inline;
+}
+.page-item{
+  display: inline;
 }
 

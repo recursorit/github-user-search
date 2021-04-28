@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-import {Button,Row,} from 'react-bootstrap'
+import {Button,Row,Col} from 'react-bootstrap'
 import MainTable from './MainTable'
 import Pagination from './Pagination'
 import lodash from 'lodash'
@@ -177,7 +177,8 @@ const AppContainer = () => {
             </div> : <div></div> }
             
 
-            {showTable ?  <div className="px-5 py-2 tableContainer"  >
+            {showTable ?  <Row className="px-5 py-2 tableContainer" xs={1} >
+                <Col>
                 <MainTable posts={currentPosts}
                  goBack={goBack}
                  avatarSort={avatarSort}
@@ -191,7 +192,9 @@ const AppContainer = () => {
                  typeAsc={typeAsc}
                 //  error={error}
                  />
-                <Form>
+                 </Col>
+                <Col> 
+                <Form className="xs-12">
                 <Form.Group controlId="exampleForm.SelectCustom" onChange={(e)=>setPostPerPage(e.target.value)}>
                     <Form.Label>Select no. of posts</Form.Label>
                     <Form.Control as="select" custom>
@@ -203,8 +206,10 @@ const AppContainer = () => {
                     </Form.Control>
                 </Form.Group>
                 </Form>
-                <Row>
-                    
+                </Col>
+                <Col >
+                    <Row className="px-3" xs={1}>
+                        <ul className="pagination ">
                         <li><Button variant="light" className="text-primary" onClick={prevBtn} disabled={currentPage === 1 ? true : false} >Prev</Button></li> 
                         {pageDecBtn}   
                         <Pagination
@@ -218,9 +223,10 @@ const AppContainer = () => {
                         />
                         {pageIncBtn} 
                         <li><Button variant="light" className="text-primary" onClick={nextBtn} disabled={currentPage === Math.ceil(posts.length/postPerPage) ? true : false} >next</Button></li> 
-                     
-                </Row>
-            </div> : <div></div> }
+                        </ul>
+                    </Row> 
+                </Col>
+            </Row> : <div></div> }
             
         </div>
     )
