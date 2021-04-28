@@ -1,6 +1,7 @@
 import React from 'react'
+import {Button} from 'react-bootstrap'
 
-const Pagination = ({postsPerPage,totalPosts,paginate}) => {
+const Pagination = ({postsPerPage,totalPosts,paginate,minPageNumberLimit,maxPageNumberLimit}) => {
     const pageNumbers = []
 
     for(let i=1; i<= Math.ceil(totalPosts/postsPerPage);i++){
@@ -8,15 +9,23 @@ const Pagination = ({postsPerPage,totalPosts,paginate}) => {
     }
 
     return(
-        <nav className="pagenav col-12-sm" >
+        <nav >
             <ul className="pagination ">
-                {pageNumbers.map(number => (
-                    <li key={number} className="page-item">
-                        <button onClick={()=>paginate(number)}  className="page-link">
-                            {number}
-                        </button>
-                    </li>
-                ))}
+                
+                {pageNumbers.map(number => {
+                    if (number < maxPageNumberLimit + 1 && number > minPageNumberLimit){
+                        return (
+                            <li key={number} className="page-item">
+                                <Button onClick={()=>paginate(number)}  className="page-link">
+                                    {number}
+                                </Button>
+                            </li>
+                        )
+                    } else {
+                        return null;
+                    }
+                })}
+                 
             </ul>
         </nav>
     )
