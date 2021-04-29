@@ -15,7 +15,7 @@ const Pagination = ({postsPerPage,totalPosts,paginate,currentPage}) => {
             <ul className="pagination ">
                 
                 {pageNumbers.map(number => {
-                    if (number < currentPage + 3 && number > currentPage - 3){
+                    if (number < currentPage + 2 && number > currentPage - 2){
                         return (
                             <li key={number} className="page-item">
                                 <Button onClick={()=>paginate(number)}  className="page-link"

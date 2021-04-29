@@ -1,16 +1,35 @@
 import { Button } from 'react-bootstrap'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Table from 'react-bootstrap/Table'
+import lodash from 'lodash'
 
+const MainTable = ({posts,goBack,error}) => {
 
-const MainTable = ({posts,goBack,avatarSort,typeSort,loginSort,avatarSortD,typeSortD,loginSortD,avatarAsc,loginAsc,typeAsc,error}) => {
-
-    
+    const [rows,setRows] = useState([])
+    useEffect(()=>{
+        setRows(posts)
+    },[posts])
+    console.log(rows)
     const imgStyle = {
         height:'80px',
         width:'80px'
     }
 
+    const [sort,setSort]= useState(false)
+    const [order,setOrder] = useState('asc')
+
+    const SortFunc = (e) => {
+        const sortA = lodash.orderBy(posts,[e], [order] )
+        setRows(sortA)
+        if(order==='asc'){
+            setOrder('desc')
+        } else {
+            setOrder('asc')
+        }
+        
+        setSort(true)
+    }
+ 
     // const [error,setError] = useState(false)
     
     // const findError =()=>{
@@ -30,34 +49,50 @@ const MainTable = ({posts,goBack,avatarSort,typeSort,loginSort,avatarSortD,typeS
             {
                 //error ? <h2>no result found </h2>:
                 <Table striped bordered hover size="sm" className="datatable" >
-                    <thead>
-                        <tr>
-                        <th>{ avatarAsc ? <Button variant="dark" onClick={avatarSortD} >Avatar  ↑ </Button>  : 
-                                <Button variant="dark" onClick={avatarSort} >Avatar </Button>
-                            } 
-                        </th>
-                        <th>{ loginAsc ? <Button variant="dark"  onClick={loginSortD} >Login Id  ↑ </Button>  : 
-                                <Button variant="dark" onClick={loginSort} >Login Id  </Button>
-                            }
-                        </th>
-                        <th>{ typeAsc ? <Button variant="dark"  onClick={typeSortD} >Type  ↑ </Button>  : 
-                                <Button variant="dark" onClick={typeSort} >Type</Button>
-                            }
-                        </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            posts.map(post=>
-                                <tr key={post.id}>
-                                <td><img src={post.avatar_url} alt="Avatar logo" style={imgStyle}/> </td>
-                                <td>{post.login}</td>
-                                <td>{post.type}</td>
-                                </tr>
-                                )
-                        }
-                            
-                    </tbody>
+                    {
+                         <thead>
+                                    <tr>
+                                    <th> 
+                                            <Button variant="dark" onClick={()=>SortFunc('avatar_url')} >Avatar </Button>
+                                        
+                                    </th>
+                                    <th> 
+                                            <Button variant="dark" onClick={()=>SortFunc('login')} >Login Id  </Button>
+                                        
+                                    </th>
+                                    <th> 
+                                            <Button variant="dark" onClick={()=>SortFunc('type')} >Type</Button>
+                                        
+                                    </th>
+                                    </tr>
+                                </thead> 
+                    }
+                    {
+                        sort ? <tbody>
+                                    {
+                                        rows.map(post=>
+                                            <tr key={post.id}>
+                                            <td><img src={post.avatar_url} alt="Avatar logo" style={imgStyle}/> </td>
+                                            <td>{post.login}</td>
+                                            <td>{post.type}</td>
+                                            </tr>
+                                            )
+                                    }
+                                        
+                                </tbody> :
+                                <tbody>
+                                    {
+                                        posts.map(post=>
+                                            <tr key={post.id}>
+                                            <td><img src={post.avatar_url} alt="Avatar logo" style={imgStyle}/> </td>
+                                            <td>{post.login}</td>
+                                            <td>{post.type}</td>
+                                            </tr>
+                                            )
+                                    }
+                                        
+                                </tbody>
+                    }
                 </Table>
 
             }
