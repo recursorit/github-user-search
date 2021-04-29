@@ -19,11 +19,22 @@ const AppContainer = () => {
 
     // const [error,setError] = useState(false)
 
+    const [sort,setSort]= useState('login')
+    const [order,setOrder] = useState('asc')
+
+
+    const SortFunc = (e) => {
+        const sortA = lodash.orderBy(posts,[e], [order] )
+        setPosts(sortA)
+        if(order==='asc'){
+            setOrder('desc')
+        } else {
+            setOrder('asc')
+        }
+        
+        setSort(e)
+    }
     
-
-
-    
-
     
 
     const handleClick = () => {
@@ -49,7 +60,7 @@ const AppContainer = () => {
         setPosts([])
         setPostPerPage(9)
         setCurrentPage(1)
-        
+        setSort('login')
         // setError(false)
     }
 
@@ -102,7 +113,9 @@ const AppContainer = () => {
                 <Col >
                 <MainTable posts={currentPosts}
                  goBack={goBack}
-                 
+                 sort={sort}
+                 SortFunc={SortFunc}
+                 order={order}
                 //  error={error}
                  />
                  </Col>

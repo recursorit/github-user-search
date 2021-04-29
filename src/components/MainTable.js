@@ -1,35 +1,34 @@
 import { Button } from 'react-bootstrap'
 import React, { useEffect, useState } from 'react'
 import Table from 'react-bootstrap/Table'
-import lodash from 'lodash'
 
-const MainTable = ({posts,goBack,error}) => {
 
-    const [rows,setRows] = useState([])
-    useEffect(()=>{
-        setRows(posts)
-    },[posts])
-    console.log(rows)
+const MainTable = ({posts,goBack,error,sort,SortFunc,order}) => {
+    
     const imgStyle = {
         height:'80px',
         width:'80px'
     }
+    
 
-    const [sort,setSort]= useState(false)
-    const [order,setOrder] = useState('asc')
+    const [arrow,setArrow] = useState("")
+    
 
-    const SortFunc = (e) => {
-        const sortA = lodash.orderBy(posts,[e], [order] )
-        setRows(sortA)
-        if(order==='asc'){
-            setOrder('desc')
+    const dirArrow = () => {
+        
+        if (order==="asc"){
+             setArrow("↑")
+        } else if(order==="desc"){
+             setArrow("↓")
         } else {
-            setOrder('asc')
+             setArrow("")
         }
         
-        setSort(true)
     }
- 
+    // eslint-disable-next-line
+     useEffect(()=>dirArrow,[posts])
+
+
     // const [error,setError] = useState(false)
     
     // const findError =()=>{
@@ -53,33 +52,24 @@ const MainTable = ({posts,goBack,error}) => {
                          <thead>
                                     <tr>
                                     <th> 
-                                            <Button variant="dark" onClick={()=>SortFunc('avatar_url')} >Avatar </Button>
-                                        
+                                            <Button variant="dark" onClick={()=>SortFunc('avatar_url')} >Avatar 
+                                            {sort==='avatar_url' ? arrow : null } 
+                                            </Button>                                        
                                     </th>
                                     <th> 
-                                            <Button variant="dark" onClick={()=>SortFunc('login')} >Login Id  </Button>
-                                        
+                                            <Button variant="dark" onClick={()=>SortFunc('login')} >Login Id 
+                                            {sort==='login' ? arrow  : null }
+                                             </Button>                                        
                                     </th>
                                     <th> 
-                                            <Button variant="dark" onClick={()=>SortFunc('type')} >Type</Button>
-                                        
+                                            <Button variant="dark" onClick={()=>SortFunc('type')} >Type
+                                            {sort==='type' ? arrow : null }
+                                            </Button>                                        
                                     </th>
                                     </tr>
                                 </thead> 
                     }
-                    {
-                        sort ? <tbody>
-                                    {
-                                        rows.map(post=>
-                                            <tr key={post.id}>
-                                            <td><img src={post.avatar_url} alt="Avatar logo" style={imgStyle}/> </td>
-                                            <td>{post.login}</td>
-                                            <td>{post.type}</td>
-                                            </tr>
-                                            )
-                                    }
-                                        
-                                </tbody> :
+                    {                        
                                 <tbody>
                                     {
                                         posts.map(post=>
@@ -89,12 +79,10 @@ const MainTable = ({posts,goBack,error}) => {
                                             <td>{post.type}</td>
                                             </tr>
                                             )
-                                    }
-                                        
+                                    }                                        
                                 </tbody>
                     }
                 </Table>
-
             }
         </div>
     )
