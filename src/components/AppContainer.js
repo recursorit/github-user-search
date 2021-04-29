@@ -17,7 +17,7 @@ const AppContainer = () => {
     const [currentPage,setCurrentPage] = useState(1)
     const [postPerPage,setPostPerPage] = useState(9)
 
-    // const [error,setError] = useState(false)
+    const [error,setError] = useState(false)
 
     const [sort,setSort]= useState('login')
     const [order,setOrder] = useState('asc')
@@ -35,23 +35,38 @@ const AppContainer = () => {
         setSort(e)
     }
     
-    
+    const BASE_URL = 'https://api.github.com';
+
+    const generateURL = (searchItem) => {
+        return `?q=${encodeURIComponent(`${searchItem} in:login`)}&per_page=100`
+      }
+
 
     const handleClick = () => {
-        axios.get(`https://api.github.com/search/users?q=${search} in:login&per_page=100`)
+        axios.get(`${BASE_URL}/search/users${generateURL(search)}`)
         .then(res =>{
             console.log(res)
             const response = lodash.sortBy(res.data.items,["login"])
+        
             setPosts(response)
+
+            if(res.data.total_count === 0){
+               return setError(true)
+            } else {
+                return null
+            }
         })
         .catch(err =>{
             console.log(err)
         })
-
-        setShowSearch(false);
-        setShowTable(true)
+        if(posts){
+            setShowSearch(false);
+            setShowTable(true)
+        }    
+        
         
     }
+
 
     const goBack = () => {
         setShowSearch(true);
@@ -61,7 +76,7 @@ const AppContainer = () => {
         setPostPerPage(9)
         setCurrentPage(1)
         setSort('login')
-        // setError(false)
+        setError(false)
     }
 
     
@@ -116,7 +131,7 @@ const AppContainer = () => {
                  sort={sort}
                  SortFunc={SortFunc}
                  order={order}
-                //  error={error}
+                 error={error}
                  />
                  </Col>
                 <Col> 

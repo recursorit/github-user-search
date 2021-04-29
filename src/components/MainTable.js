@@ -46,7 +46,7 @@ const MainTable = ({posts,goBack,error,sort,SortFunc,order}) => {
         <div>
             <Button variant="outline-danger" onClick={goBack} className="my-4" >Go Back</Button>
             {
-                //error ? <h2>no result found </h2>:
+                error ? <h2>no result found </h2>:
                 <Table striped bordered hover size="sm" className="datatable" >
                     {
                          <thead>
