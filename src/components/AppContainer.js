@@ -50,6 +50,9 @@ const AppContainer = () => {
         
             setPosts(response)
 
+            setShowSearch(false);
+            setShowTable(true)
+
             if(res.data.total_count === 0){
                return setError(true)
             } else {
@@ -60,8 +63,7 @@ const AppContainer = () => {
             console.log(err)
         })
         if(posts){
-            setShowSearch(false);
-            setShowTable(true)
+            
         }    
         
         
