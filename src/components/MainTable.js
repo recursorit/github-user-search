@@ -28,23 +28,10 @@ const MainTable = ({posts,goBack,error,sort,SortFunc,order}) => {
     // eslint-disable-next-line
      useEffect(()=>dirArrow,[posts])
 
-
-    // const [error,setError] = useState(false)
-    
-    // const findError =()=>{
-    //     if(posts.length < 1){
-    //         setError(true)
-    //     } else {
-    //          setError(false)
-    //     }
-    // }
-    // console.log(posts.length)
-    // findError()
-
-
     return(
         <div>
             <Button variant="outline-danger" onClick={goBack} className="my-4" >Go Back</Button>
+
             {
                 error ? <h2>no result found </h2>:
                 <Table striped bordered hover size="sm" className="datatable" >

@@ -5,14 +5,15 @@ import MainTable from './MainTable'
 import Pagination from './Pagination'
 import lodash from 'lodash'
 import Form from 'react-bootstrap/Form'
+import Spinner from 'react-bootstrap/Spinner'
 
 const AppContainer = () => {
     
     const [posts,setPosts] = useState([])
     const [search,setSearch] = useState('')
+    const [loading,setLoading] = useState(false)
     
     const [showSearch,setShowSearch] = useState(true)
-    const [showTable,setShowTable]=useState(false)
 
     const [currentPage,setCurrentPage] = useState(1)
     const [postPerPage,setPostPerPage] = useState(9)
@@ -21,19 +22,6 @@ const AppContainer = () => {
 
     const [sort,setSort]= useState('login')
     const [order,setOrder] = useState('asc')
-
-
-    const SortFunc = (e) => {
-        const sortA = lodash.orderBy(posts,[e], [order] )
-        setPosts(sortA)
-        if(order==='asc'){
-            setOrder('desc')
-        } else {
-            setOrder('asc')
-        }
-        
-        setSort(e)
-    }
     
     const BASE_URL = 'https://api.github.com';
 
@@ -43,6 +31,7 @@ const AppContainer = () => {
 
 
     const handleClick = () => {
+        setLoading(true)
         axios.get(`${BASE_URL}/search/users${generateURL(search)}`)
         .then(res =>{
             console.log(res)
@@ -51,7 +40,7 @@ const AppContainer = () => {
             setPosts(response)
 
             setShowSearch(false);
-            setShowTable(true)
+            setLoading(false)
 
             if(res.data.total_count === 0){
                return setError(true)
@@ -69,10 +58,22 @@ const AppContainer = () => {
         
     }
 
+    
+    const SortFunc = (e) => {
+        const sortA = lodash.orderBy(posts,[e], [order] )
+        setPosts(sortA)
+        if(order==='asc'){
+            setOrder('desc')
+        } else {
+            setOrder('asc')
+        }
+        
+        setSort(e)
+    }
+
 
     const goBack = () => {
         setShowSearch(true);
-        setShowTable(false);
         setSearch('')
         setPosts([])
         setPostPerPage(9)
@@ -122,11 +123,17 @@ const AppContainer = () => {
             {showSearch ? <div className=" py-4 searchContainer ">
             <h2 className="display-3">Search for user here</h2>    
             <input autoFocus  type="text" value={search} onChange={e=>setSearch(e.target.value)} className="mt-3 p-2 rounded " placeholder="Type here"/>
-            <div className="my-3"><Button onClick={handleClick} variant="outline-dark ml-2" disabled={!search}  >Search</Button></div>
-            </div> : <div></div> }
-            
-
-            {showTable ?  <Row className="px-4 py-2 tableContainer" xs={1} >
+            <div className="my-3"><Button onClick={handleClick} variant="outline-dark ml-2" disabled={!search}  >
+                {loading ? <Spinner
+                            as="span"
+                            animation="border"
+                            size="sm"
+                            role="status"
+                            aria-hidden="true"
+                            />:null} 
+                Search</Button></div>
+            </div> : 
+            <Row className="px-4 py-2 tableContainer" xs={1} >
                 <Col >
                 <MainTable posts={currentPosts}
                  goBack={goBack}
@@ -176,8 +183,10 @@ const AppContainer = () => {
                         </ul>
                     </Row> 
                 </Col>
-            </Row> : <div></div> }
+            </Row>
             
+            }
+                
         </div>
     )
 }
