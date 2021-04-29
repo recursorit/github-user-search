@@ -1,11 +1,14 @@
 import { Button } from 'react-bootstrap'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Table from 'react-bootstrap/Table'
 import lodash from 'lodash'
 
 const MainTable = ({posts,goBack,error}) => {
 
-    const [rows,setRows] = useState(posts)
+    const [rows,setRows] = useState([])
+    useEffect(()=>{
+        setRows(posts)
+    },[posts])
     console.log(rows)
     const imgStyle = {
         height:'80px',
@@ -13,20 +16,18 @@ const MainTable = ({posts,goBack,error}) => {
     }
 
     const [sort,setSort]= useState(false)
-    const [order,setOrder] = useState('Asc')
+    const [order,setOrder] = useState('asc')
 
-    const SortAsc = (e) => {
-        const sortA = lodash.orderBy(posts,[e], ['asc', 'desc'] )
+    const SortFunc = (e) => {
+        const sortA = lodash.orderBy(posts,[e], [order] )
         setRows(sortA)
-        setOrder('Desc')
+        if(order==='asc'){
+            setOrder('desc')
+        } else {
+            setOrder('asc')
+        }
+        
         setSort(true)
-    }
-
-    const SortDec = (e) => {
-        const sortD = lodash.orderBy(posts,[e], ['asc', 'desc'] ).reverse()
-        setRows(sortD)
-        setOrder('Asc')
-        setSort(false)
     }
  
     // const [error,setError] = useState(false)
@@ -49,42 +50,49 @@ const MainTable = ({posts,goBack,error}) => {
                 //error ? <h2>no result found </h2>:
                 <Table striped bordered hover size="sm" className="datatable" >
                     {
-                        sort ? <thead>
+                         <thead>
                                     <tr>
-                                    <th>{ order === 'Asc' ? <Button variant="dark" onClick={SortDec('avatar_url')} >Avatar  ↑ </Button>  : 
-                                            <Button variant="dark" onClick={SortAsc('avatar_url')} >Avatar </Button>
-                                        } 
+                                    <th> 
+                                            <Button variant="dark" onClick={()=>SortFunc('avatar_url')} >Avatar </Button>
+                                        
                                     </th>
-                                    <th>{ order === 'Asc' ? <Button variant="dark"  onClick={SortDec('login')} >Login Id  ↑ </Button>  : 
-                                            <Button variant="dark" onClick={SortAsc('login')} >Login Id  </Button>
-                                        }
+                                    <th> 
+                                            <Button variant="dark" onClick={()=>SortFunc('login')} >Login Id  </Button>
+                                        
                                     </th>
-                                    <th>{ order === 'Asc' ? <Button variant="dark"  onClick={SortDec('type')} >Type  ↑ </Button>  : 
-                                            <Button variant="dark" onClick={SortAsc('type')} >Type</Button>
-                                        }
+                                    <th> 
+                                            <Button variant="dark" onClick={()=>SortFunc('type')} >Type</Button>
+                                        
                                     </th>
                                     </tr>
-                                </thead> : 
-                                <thead>
-                                    <tr>
-                                        <th><Button variant="dark" onClick={SortAsc('avatar_url')} >Avatar </Button></th>
-                                        <th> <Button variant="dark" onClick={SortAsc('login')} >Login Id  </Button></th>
-                                        <th> <Button variant="dark" onClick={SortAsc('type')} >Type</Button></th>
-                                    </tr>
-                                </thead>
+                                </thead> 
                     }
-                    <tbody>
-                        {
-                            rows.map(post=>
-                                <tr key={post.id}>
-                                <td><img src={post.avatar_url} alt="Avatar logo" style={imgStyle}/> </td>
-                                <td>{post.login}</td>
-                                <td>{post.type}</td>
-                                </tr>
-                                )
-                        }
-                            
-                    </tbody>
+                    {
+                        sort ? <tbody>
+                                    {
+                                        rows.map(post=>
+                                            <tr key={post.id}>
+                                            <td><img src={post.avatar_url} alt="Avatar logo" style={imgStyle}/> </td>
+                                            <td>{post.login}</td>
+                                            <td>{post.type}</td>
+                                            </tr>
+                                            )
+                                    }
+                                        
+                                </tbody> :
+                                <tbody>
+                                    {
+                                        posts.map(post=>
+                                            <tr key={post.id}>
+                                            <td><img src={post.avatar_url} alt="Avatar logo" style={imgStyle}/> </td>
+                                            <td>{post.login}</td>
+                                            <td>{post.type}</td>
+                                            </tr>
+                                            )
+                                    }
+                                        
+                                </tbody>
+                    }
                 </Table>
 
             }
