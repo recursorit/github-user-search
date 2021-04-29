@@ -19,9 +19,9 @@ const AppContainer = () => {
 
     // const [error,setError] = useState(false)
 
-    const [avatarAsc,setAvatarAsc] = useState(false)
-    const [loginAsc,setLoginAsc] = useState(true)
-    const [typeAsc,setTypeAsc] = useState(false)
+    // const [avatarAsc,setAvatarAsc] = useState(false)
+    // const [loginAsc,setLoginAsc] = useState(true)
+    // const [typeAsc,setTypeAsc] = useState(false)
 
 
     
@@ -38,12 +38,10 @@ const AppContainer = () => {
         .catch(err =>{
             console.log(err)
         })
-
+        
         setShowSearch(false);
         setShowTable(true)
-        // if(posts.length < 1){
-        //     setError(true)
-        // }
+        
     }
 
     const goBack = () => {
@@ -52,61 +50,61 @@ const AppContainer = () => {
         setSearch('')
         setPosts([])
         setPostPerPage(9)
-        setAvatarAsc(false)
-        setLoginAsc(true)
-        setTypeAsc(false)
+        // setAvatarAsc(false)
+        // setLoginAsc(true)
+        // setTypeAsc(false)
         setCurrentPage(1)
         
         // setError(false)
     }
 
-    const avatarSort = () => {
-        const asort = lodash.orderBy(posts,['avatar_url'], ['asc', 'desc'])
-        setPosts(asort)
-        setAvatarAsc(true)
-        setLoginAsc(false)
-        setTypeAsc(false)
-    }
+    // const avatarSort = () => {
+    //     const asort = lodash.orderBy(posts,['avatar_url'], ['asc', 'desc'])
+    //     setPosts(asort)
+    //     setAvatarAsc(true)
+    //     setLoginAsc(false)
+    //     setTypeAsc(false)
+    // }
 
-    const typeSort = () => {
-        const tsort = lodash.orderBy(posts,['type'], ['asc', 'desc'] )
-        setPosts(tsort)
-        setAvatarAsc(false)
-        setLoginAsc(false)
-        setTypeAsc(true)
-    }
+    // const typeSort = () => {
+    //     const tsort = lodash.orderBy(posts,['type'], ['asc', 'desc'] )
+    //     setPosts(tsort)
+    //     setAvatarAsc(false)
+    //     setLoginAsc(false)
+    //     setTypeAsc(true)
+    // }
 
-    const loginSortD = () => {
-        const lsortD = lodash.orderBy(posts,['login'], ['asc', 'desc'] ).reverse()
-        setPosts(lsortD)
-        setAvatarAsc(false)
-        setLoginAsc(false)
-        setTypeAsc(false)
-    }
+    // const loginSortD = () => {
+    //     const lsortD = lodash.orderBy(posts,['login'], ['asc', 'desc'] ).reverse()
+    //     setPosts(lsortD)
+    //     setAvatarAsc(false)
+    //     setLoginAsc(false)
+    //     setTypeAsc(false)
+    // }
 
-    const avatarSortD = () => {
-        const asortD = lodash.orderBy(posts,['avatar_url'], ['asc', 'desc']).reverse()
-        setPosts(asortD)
-        setAvatarAsc(false)
-        setLoginAsc(false)
-        setTypeAsc(false)
-    }
+    // const avatarSortD = () => {
+    //     const asortD = lodash.orderBy(posts,['avatar_url'], ['asc', 'desc']).reverse()
+    //     setPosts(asortD)
+    //     setAvatarAsc(false)
+    //     setLoginAsc(false)
+    //     setTypeAsc(false)
+    // }
 
-    const typeSortD = () => {
-        const tsortD = lodash.orderBy(posts,['type'], ['asc', 'desc'] ).reverse()
-        setPosts(tsortD)
-        setAvatarAsc(false)
-        setLoginAsc(false)
-        setTypeAsc(false)
-    }
+    // const typeSortD = () => {
+    //     const tsortD = lodash.orderBy(posts,['type'], ['asc', 'desc'] ).reverse()
+    //     setPosts(tsortD)
+    //     setAvatarAsc(false)
+    //     setLoginAsc(false)
+    //     setTypeAsc(false)
+    // }
 
-    const loginSort = () => {
-        const lsort = lodash.orderBy(posts,['login'], ['asc', 'desc'] )
-        setPosts(lsort)
-        setAvatarAsc(false)
-        setLoginAsc(true)
-        setTypeAsc(false)
-    }
+    // const loginSort = () => {
+    //     const lsort = lodash.orderBy(posts,['login'], ['asc', 'desc'] )
+    //     setPosts(lsort)
+    //     setAvatarAsc(false)
+    //     setLoginAsc(true)
+    //     setTypeAsc(false)
+    // }
 
     const indexOfLastPost = currentPage*postPerPage;
     const indexOffirstPost = indexOfLastPost - postPerPage;
@@ -125,14 +123,14 @@ const AppContainer = () => {
    
 
     let pageIncBtn = null;
-    if( currentPage + 2  < Math.ceil(posts.length/postPerPage)) {
+    if( currentPage + 1  < Math.ceil(posts.length/postPerPage)) {
         pageIncBtn = <li><Button variant="light" className="text-primary" disabled >...</Button></li>
     }
 
     
 
     let pageDecBtn = null;
-    if( currentPage - 2  > 1) {
+    if( currentPage - 1  > 1) {
         pageDecBtn = <li><Button variant="light" className="text-primary" disabled >...</Button></li>
     }
     
@@ -156,15 +154,15 @@ const AppContainer = () => {
                 <Col >
                 <MainTable posts={currentPosts}
                  goBack={goBack}
-                 avatarSort={avatarSort}
-                 typeSort={typeSort} 
-                 loginSortD={loginSortD}
-                 avatarSortD={avatarSortD}
-                 typeSortD={typeSortD}
-                 loginSort={loginSort}
-                 avatarAsc={avatarAsc}
-                 loginAsc={loginAsc}
-                 typeAsc={typeAsc}
+                //  avatarSort={avatarSort}
+                //  typeSort={typeSort} 
+                //  loginSortD={loginSortD}
+                //  avatarSortD={avatarSortD}
+                //  typeSortD={typeSortD}
+                //  loginSort={loginSort}
+                //  avatarAsc={avatarAsc}
+                //  loginAsc={loginAsc}
+                //  typeAsc={typeAsc}
                 //  error={error}
                  />
                  </Col>
