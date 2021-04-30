@@ -27,6 +27,7 @@ const MainTable = ({posts,goBack,error,sort,SortFunc,order}) => {
     }
     // eslint-disable-next-line
      useEffect(()=>dirArrow,[posts])
+     useEffect(()=>SortFunc('login'),[])
 
     return(
         <div>

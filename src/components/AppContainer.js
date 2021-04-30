@@ -33,11 +33,8 @@ const AppContainer = () => {
     const handleClick = () => {
         setLoading(true)
         axios.get(`${BASE_URL}/search/users${generateURL(search)}`)
-        .then(res =>{
-            console.log(res)
-            const response = lodash.sortBy(res.data.items,["login"])
-        
-            setPosts(response)
+        .then(res =>{        
+            setPosts(res.data.items)
 
             setShowSearch(false);
             setLoading(false)
@@ -124,8 +121,9 @@ const AppContainer = () => {
             {showSearch ? <div className=" py-4 searchContainer ">
             <h2 className="display-3">Search for user here</h2>    
             <input autoFocus  type="text" value={search} onChange={e=>setSearch(e.target.value)} className="mt-3 p-2 rounded " placeholder="Type here"/>
-            <div className="my-3"><Button onClick={handleClick} variant="outline-dark ml-2" disabled={!search}  >
+            <div className="my-3"><Button onClick={handleClick} variant="outline-dark ml-2" disabled={!search || loading}   >
                 {loading ? <Spinner
+                            className="mr-2"
                             as="span"
                             animation="border"
                             size="sm"
