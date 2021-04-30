@@ -79,6 +79,7 @@ const AppContainer = () => {
         setPostPerPage(9)
         setCurrentPage(1)
         setSort('login')
+        setOrder('asc')
         setError(false)
     }
 
@@ -144,10 +145,10 @@ const AppContainer = () => {
                  />
                  </Col>
                 <Col> 
-                <Form className="xs-12">
+                <Form className="xs-12 d-flex justify-content-center">
                 <Form.Group controlId="exampleForm.SelectCustom" onChange={(e)=>setPostPerPage(e.target.value)}>
-                    <Form.Label>Select no. of Rows</Form.Label>
-                    <Form.Control as="select" custom>
+                    <Form.Label >Select no. of Rows</Form.Label>
+                    <Form.Control   as="select" custom>
                     <option>9</option>    
                     <option>12</option>
                     <option>15</option>
@@ -159,7 +160,8 @@ const AppContainer = () => {
                 </Col>
                 <Col >
                     <Row className="px-3" xs={1}>
-                        <ul className="pagination ">
+                        
+                        <ul className="pagination  justify-content-center ">
                         <li><Button variant="light"
                          className="text-primary"
                          onClick={prevBtn}
@@ -181,6 +183,7 @@ const AppContainer = () => {
                          onClick={nextBtn} 
                          disabled={currentPage === Math.ceil(posts.length/postPerPage) ? true : false} >next</Button></li> 
                         </ul>
+                        
                     </Row> 
                 </Col>
             </Row>
