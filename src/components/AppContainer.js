@@ -5,7 +5,7 @@ import MainTable from './MainTable'
 import Pagination from './Pagination'
 import lodash from 'lodash'
 import Form from 'react-bootstrap/Form'
-import Spinner from 'react-bootstrap/Spinner'
+import Search from './Search'
 
 const AppContainer = () => {
     
@@ -28,8 +28,7 @@ const AppContainer = () => {
     const generateURL = (searchItem) => {
         return `?q=${encodeURIComponent(`${searchItem} in:login`)}&per_page=100`
       }
-
-
+  
     const handleClick = () => {
         setLoading(true)
         axios.get(`${BASE_URL}/search/users${generateURL(search)}`)
@@ -108,30 +107,15 @@ const AppContainer = () => {
     if( currentPage - 1  > 1) {
         pageDecBtn = <li><Button variant="light" className="text-primary" disabled >...</Button></li>
     }
-    
-
-    
-
-    
-
-    
 
     return(
         <div>
-            {showSearch ? <div className=" py-4 searchContainer ">
-            <h2 className="display-3">Search for user here</h2>    
-            <input autoFocus  type="text" value={search} onChange={e=>setSearch(e.target.value)} className="mt-3 p-2 rounded " placeholder="Type here"/>
-            <div className="my-3"><Button onClick={handleClick} variant="outline-dark ml-2" disabled={!search || loading}   >
-                {loading ? <Spinner
-                            className="mr-2"
-                            as="span"
-                            animation="border"
-                            size="sm"
-                            role="status"
-                            aria-hidden="true"
-                            />:null} 
-                Search</Button></div>
-            </div> : 
+            {showSearch ? 
+            <Search search={search}
+                    handleClick={handleClick}
+                    loading={loading} 
+                    setSearch={setSearch}/>
+             : 
             <Row className="px-4 py-2 tableContainer" xs={1} >
                 <Col >
                 <MainTable posts={currentPosts}
@@ -157,8 +141,7 @@ const AppContainer = () => {
                 </Form>
                 </Col>
                 <Col >
-                    <Row className="px-3" xs={1}>
-                        
+                    <Row className="px-3" xs={1}>                        
                         <ul className="pagination  justify-content-center ">
                         <li><Button variant="light"
                          className="text-primary"
@@ -180,14 +163,11 @@ const AppContainer = () => {
                          className="text-primary" 
                          onClick={nextBtn} 
                          disabled={currentPage === Math.ceil(posts.length/postPerPage) ? true : false} >next</Button></li> 
-                        </ul>
-                        
+                        </ul>                        
                     </Row> 
                 </Col>
-            </Row>
-            
-            }
-                
+            </Row>            
+            }                
         </div>
     )
 }
